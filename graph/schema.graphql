@@ -1,0 +1,31 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Post{
+  id: ID!
+  title: String!
+  description: String!
+  publicationDate: Time!
+}
+
+type Query {
+    posts(count: Int = 10): [Post!]!
+}
+
+input NewPost {
+  title: String!
+  description: String!
+}
+
+type Mutation {
+  createPost(input: NewPost!): Post!
+}
+
+type Subscription {
+    PostAdded(channName: String!): Post!
+}
+
+scalar Time
+
+directive @user(id:ID!) on SUBSCRIPTION
