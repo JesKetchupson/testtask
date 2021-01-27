@@ -1,7 +1,7 @@
 package graph
 
 import (
-	"github.com/nwk123/testtask/graph/model"
+	"github.com/JesKetchupson/testtask/graph/model"
 )
 
 // This file will not be regenerated automatically.

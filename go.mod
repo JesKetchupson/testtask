@@ -1,4 +1,4 @@
-module github.com/nwk123/testtask
+module github.com/JesKetchupson/testtask
 
 go 1.15
 

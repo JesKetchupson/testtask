@@ -7,9 +7,9 @@ import (
 	"context"
 	"time"
 
+	"github.com/JesKetchupson/testtask/graph/generated"
+	"github.com/JesKetchupson/testtask/graph/model"
 	"github.com/google/uuid"
-	"github.com/nwk123/testtask/graph/generated"
-	"github.com/nwk123/testtask/graph/model"
 )
 
 func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) (*model.Post, error) {
