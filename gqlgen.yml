@@ -1,5 +1,12 @@
-schema: schema.graphql
+schema: graph/schema.graphql
 model:
-  filename: models_gen.go
+  filename: graph/model/models_gen.go
+  package: model
 exec:
-  filename: generated.go
+  filename: graph/generated/generated.go
+  package: generated
+resolver:
+ layout: follow-schema
+ dir: graph
+ package: graph
+

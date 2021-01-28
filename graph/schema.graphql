@@ -9,9 +9,7 @@ type Post{
   publicationDate: Time!
 }
 
-type Query {
-    posts(count: Int = 10): [Post!]!
-}
+
 
 input NewPost {
   title: String!
@@ -24,6 +22,10 @@ type Mutation {
 
 type Subscription {
     PostAdded(channName: String!): Post!
+}
+
+type Query {
+    posts(first: Int = 0, offset: Int = 10): [Post!]!
 }
 
 scalar Time
