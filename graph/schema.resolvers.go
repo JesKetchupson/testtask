@@ -22,7 +22,6 @@ func (r *mutationResolver) CreatePost(ctx context.Context, input model.NewPost) 
 	r.posts = append(r.posts, p)
 	go func() {
 		if r.sub["sub"] != nil {
-			<-r.sub["sub"]
 			r.sub["sub"] <- p
 		}
 	}()
@@ -34,7 +33,9 @@ func (r *queryResolver) Posts(ctx context.Context) ([]*model.Post, error) {
 }
 
 func (r *subscriptionResolver) PostAdded(ctx context.Context, channName string) (<-chan *model.Post, error) {
-	return r.sub["sub"], nil
+	events := make(chan *model.Post, 1)
+	r.sub["sub"] = events
+	return events, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
@@ -45,8 +46,11 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 // Subscription returns generated.SubscriptionResolver implementation.
 func (r *Resolver) Subscription() generated.SubscriptionResolver {
-	postCh := make(chan *model.Post, 1)
-	r.sub["sub"] = postCh
+	if r.sub == nil {
+		r.sub = make(map[string]chan *model.Post, 1)
+		postCh := make(chan *model.Post, 1)
+		r.sub["sub"] = postCh
+	}
 	return &subscriptionResolver{r}
 }
 
